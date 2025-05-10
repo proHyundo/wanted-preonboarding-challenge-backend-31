@@ -37,4 +37,14 @@ public class ProductDetail {
     
     @Column(columnDefinition = "jsonb")
     private String additionalInfo;  // 추가 정보 (JSONB)
+
+    public void setProduct(Product product) {
+        if (this.product == product) {
+            return;  // 이미 같은 객체면 처리하지 않음
+        }
+        this.product = product;
+        if (product != null && product.getProductDetail() != this) {
+            product.setProductDetail(this);
+        }
+    }
 }

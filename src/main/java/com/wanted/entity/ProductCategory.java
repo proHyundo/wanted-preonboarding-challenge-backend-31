@@ -27,4 +27,16 @@ public class ProductCategory {
     private Category category;      // 카테고리 ID (FK)
     
     private Boolean isPrimary;      // 주요 카테고리 여부
+
+    public void setProduct(Product product) {
+        this.product = product;
+        if (product != null && !product.getCategories().contains(this)) {
+            product.getCategories().add(this);
+        }
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+        // 카테고리 쪽에도 이 매핑을 추가하는 로직이 있다면 필요
+    }
 }

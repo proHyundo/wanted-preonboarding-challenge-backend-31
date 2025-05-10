@@ -30,4 +30,11 @@ public class ProductImage {
     @ManyToOne
     @JoinColumn(name = "option_id")
     private ProductOption option;   // 연관된 옵션 ID (FK, nullable)
+
+    public void setProduct(Product product) {
+        this.product = product;
+        if (product != null && !product.getImages().contains(this)) {
+            product.getImages().add(this);
+        }
+    }
 }

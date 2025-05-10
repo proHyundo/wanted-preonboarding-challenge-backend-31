@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name = "seller")
@@ -26,5 +28,8 @@ public class Seller {
     private Double rating;          // 평점
     private String contactEmail;    // 연락처 이메일
     private String contactPhone;    // 연락처 전화번호
+    @CreatedDate
     private LocalDateTime createdAt; // 등록일
+    @LastModifiedDate
+    private LocalDateTime updatedAt; // 수정일
 }

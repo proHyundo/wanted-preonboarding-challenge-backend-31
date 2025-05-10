@@ -32,4 +32,11 @@ public class ProductPrice {
     private String currency;        // 통화 (기본값 KRW)
     
     private BigDecimal taxRate;     // 세율
+
+    public void setProduct(Product product) {
+        this.product = product;
+        if (product != null && !product.getPrices().contains(this)) {
+            product.getPrices().add(this);
+        }
+    }
 }

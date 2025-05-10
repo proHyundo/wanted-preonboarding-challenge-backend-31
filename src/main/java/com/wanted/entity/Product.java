@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name = "product")
@@ -29,7 +31,9 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String fullDescription;  // 전체 설명 (HTML 허용)
 
+    @CreatedDate
     private LocalDateTime createdAt; // 등록일
+    @LastModifiedDate
     private LocalDateTime updatedAt; // 수정일
 
     @ManyToOne
@@ -91,9 +95,17 @@ public class Product {
         this.status = entity.getStatus();
     }
 
-    // 상품 옵션 그룹 추가 메서드
+    public void setProductDetail(ProductDetail productDetail) {
+        this.productDetail = productDetail;
+        if (productDetail != null && productDetail.getProduct() != this) {
+            productDetail.setProduct(this);
+        }
+    }
+
+    // Product.java에 추가된 메서드
     public void addOptionGroup(ProductOptionGroup optionGroup) {
-        this.optionGroups.add(optionGroup);
+        this.optionGroups.add(optionGroup);  // 1. Product → OptionGroup 참조 설정
+        optionGroup.setProduct(this);        // 2. OptionGroup → Product 참조 설정
     }
 
     // 상품 이미지 추가 메서드
@@ -115,4 +127,5 @@ public class Product {
     public void addReview(Review review) {
         this.reviews.add(review);
     }
+
 }

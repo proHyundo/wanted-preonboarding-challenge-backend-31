@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Table(name = "review")
@@ -32,8 +34,19 @@ public class Review {
     private Integer rating;         // 평점 (1-5)
     private String title;           // 제목
     private String content;         // 내용
+
+    @CreatedDate
     private LocalDateTime createdAt; // 작성일
+
+    @LastModifiedDate
     private LocalDateTime updatedAt; // 수정일
     private Boolean verifiedPurchase; // 구매 확인 여부
     private Integer helpfulVotes;   // 도움됨 투표 수
+
+    public void setProduct(Product product) {
+        this.product = product;
+        if (product != null && !product.getReviews().contains(this)) {
+            product.getReviews().add(this);
+        }
+    }
 }

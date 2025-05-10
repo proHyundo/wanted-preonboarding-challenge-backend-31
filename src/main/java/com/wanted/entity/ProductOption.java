@@ -29,4 +29,11 @@ public class ProductOption {
     private String sku;             // 재고 관리 코드
     private Integer stock;          // 재고 수량
     private Integer displayOrder;   // 표시 순서
+
+    public void setOptionGroup(ProductOptionGroup optionGroup) {
+        this.optionGroup = optionGroup;
+        if (optionGroup != null && !optionGroup.getOptions().contains(this)) {
+            optionGroup.getOptions().add(this);
+        }
+    }
 }

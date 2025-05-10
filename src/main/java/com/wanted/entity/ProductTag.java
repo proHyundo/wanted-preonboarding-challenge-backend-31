@@ -25,4 +25,19 @@ public class ProductTag {
     @ManyToOne
     @JoinColumn(name = "tag_id")
     private Tag tag;                // 태그 ID (FK)
+
+    public void setProduct(Product product) {
+        this.product = product;
+        if (product != null && !product.getTags().contains(this)) {
+            product.getTags().add(this);
+        }
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+        if (tag != null && tag.getProductTags() != null && !tag.getProductTags().contains(this)) {
+            tag.getProductTags().add(this);
+        }
+    }
+
 }

@@ -30,4 +30,11 @@ public class ProductOptionGroup {
     
     @OneToMany(mappedBy = "optionGroup", cascade = CascadeType.ALL)
     private List<ProductOption> options = new ArrayList<>();
+
+    public void setProduct(Product product) {
+        this.product = product;
+        if (product != null && !product.getOptionGroups().contains(this)) {
+            product.getOptionGroups().add(this);
+        }
+    }
 }
